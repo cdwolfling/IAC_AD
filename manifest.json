@@ -1,14 +1,14 @@
 ﻿{
 	"manifest_version": 2,
-	"name": "cnblogs.com article information",
+	"name": "IAC Group Info",
 	"version": "0.0.1",
 	"background": { "scripts": ["jquery-2.1.0.js", "background.js"] },
 	"page_action": {
 		"default_icon": {
-			"19": "cnblogs_19.png",
-			"38": "cnblogs_38.png"
+			"19": "IAC_19.png",
+			"38": "IAC_38.png"
 		},
-		"default_title": "cnblogs.com article information", // shown in tooltip
+		"default_title": "gmail.com IAC Group Info", // shown in tooltip
 		"default_popup": "popup.html"
 	},
 	"permissions" : ["tabs","http://127.0.0.1/"],
