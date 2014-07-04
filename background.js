@@ -19,26 +19,26 @@ chrome.tabs.onUpdated.addListener(checkForValidUrl);
 
 var articleData = {};
 articleData.error = "加载中...";
-chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
-	if(request.type!=="cnblog-article-information")
-		return;
-	articleData = request;
-	articleData.firstAccess = "获取中...";
-	if(!articleData.error){
-		$.ajax({
-		    url: "http://127.0.0.1:34769/Default.aspx",
-			cache: false,
-			type: "POST",
-			data: JSON.stringify({url:articleData.url}),
-			dataType: "json"
-		}).done(function(msg) {
-			if(msg.error){
-				articleData.firstAccess = msg.error;
-			} else {
-				articleData.firstAccess = msg.firstAccess;
-			}
-		}).fail(function(jqXHR, textStatus) {
-			articleData.firstAccess = textStatus;
-		});
-	}
-});
+//chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
+//	if(request.type!=="cnblog-article-information")
+//		return;
+//	articleData = request;
+//	articleData.firstAccess = "获取中...";
+//	if(!articleData.error){
+//		$.ajax({
+//		    url: "http://127.0.0.1:45280/Default.aspx",
+//			cache: false,
+//			type: "POST",
+//			data: JSON.stringify({url:articleData.url}),
+//			dataType: "json"
+//		}).done(function(msg) {
+//			if(msg.error){
+//				articleData.firstAccess = msg.error;
+//			} else {
+//				articleData.firstAccess = msg.firstAccess;
+//			}
+//		}).fail(function(jqXHR, textStatus) {
+//			articleData.firstAccess = textStatus;
+//		});
+//	}
+//});
