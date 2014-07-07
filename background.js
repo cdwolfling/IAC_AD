@@ -23,7 +23,7 @@ articleData.error = "加载中...";
 //	if(request.type!=="cnblog-article-information")
 //		return;
 //	articleData = request;
-//	articleData.firstAccess = "获取中...";
+//	articleData.MemberInfo = "获取中...";
 //	if(!articleData.error){
 //		$.ajax({
 //		    url: "http://127.0.0.1:45280/Default.aspx",
@@ -33,12 +33,12 @@ articleData.error = "加载中...";
 //			dataType: "json"
 //		}).done(function(msg) {
 //			if(msg.error){
-//				articleData.firstAccess = msg.error;
+//				articleData.MemberInfo = msg.error;
 //			} else {
-//				articleData.firstAccess = msg.firstAccess;
+//				articleData.MemberInfo = msg.MemberInfo;
 //			}
 //		}).fail(function(jqXHR, textStatus) {
-//			articleData.firstAccess = textStatus;
+//			articleData.MemberInfo = textStatus;
 //		});
 //	}
 //});

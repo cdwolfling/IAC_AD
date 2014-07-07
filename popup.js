@@ -19,7 +19,7 @@ $(function () {
                 if (element.error) {
                     $('#groupinfo').append(element.error);
                 } else {
-                    $('#groupinfo').append(element.firstAccess + "<br>");
+                    $('#groupinfo').append(element.MemberInfo + "<br>");
                 }
             })
         }).fail(function (jqXHR, textStatus) {
@@ -41,7 +41,7 @@ function GetGroupInfo() {
             if (element.error) {
                 $('#groupinfo').append(element.error);
             } else {
-                $('#groupinfo').append(element.firstAccess + "<br>");
+                $('#groupinfo').append(element.MemberInfo + "<br>");
             }
         })
     }).fail(function (jqXHR, textStatus) {
@@ -52,7 +52,7 @@ function GetGroupInfo() {
 function dumpgroupinfo(query) {
     var articleData = {};
     articleData.error = "加载中...";
-    articleData.firstAccess = "获取中...";
+    articleData.MemberInfo = "获取中...";
     $.ajax({
         url: "http://127.0.0.1:45280/Default.aspx",
         cache: false,
@@ -61,27 +61,26 @@ function dumpgroupinfo(query) {
         dataType: "json"
     }).done(function (msg) {
         if (msg.error) {
-            articleData.firstAccess = msg.error;
+            articleData.MemberInfo = msg.error;
         } else {
-            articleData.firstAccess = msg.firstAccess;
+            articleData.MemberInfo = msg.MemberInfo;
         }
     }).fail(function (jqXHR, textStatus) {
-        articleData.firstAccess = textStatus;
+        articleData.MemberInfo = textStatus;
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     var data = chrome.extension.getBackgroundPage().articleData;
     if (data.error) {
-        $("#message").text(data.error);
+        //$("#message").text(data.error);
         $("#content").hide();
-        $("#search").val("EIT");
     } else {
         $("#message").hide();
         $("#content-title").text(data.title);
         $("#content-author").text(data.author);
         $("#content-date").text(data.postDate);
-        $("#content-first-access").text(data.firstAccess);
+        $("#content-first-access").text(data.MemberInfo);
         $("#search").val("MIT");
     }
 });
