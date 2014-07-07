@@ -3,35 +3,65 @@
 var articleData = {};
 articleData.error = "加载中...";
 
-// Search the groupname info when entering the search keyword.
+// Search the groupname info when change the search keyword.--not work with textext.js
 $(function () {
     $('#search').change(
-    function () {
-        $('#groupinfo').empty();
-        $.ajax({
-            url: "http://127.0.0.1:45280/Default.aspx",
-            cache: false,
-            type: "POST",
-            data: JSON.stringify({ url: $('#search').val() }),
-            dataType: "json"
-        }).done(function (msg) {
-            $.each(msg, function (index, element) {
-                if (element.error) {
-                    $('#groupinfo').append(element.error);
-                } else {
-                    $('#groupinfo').append(element.MemberInfo + "<br>");
-                }
-            })
-        }).fail(function (jqXHR, textStatus) {
-            $('#groupinfo').append(textStatus);
+        function () {
+            $('#groupinfo').empty();
+            $.ajax({
+                url: "http://psd1935-v.iacp.iac/FIS/MAY/GetIacAdInfo/Default.aspx",
+                cache: false,
+                type: "POST",
+                data: JSON.stringify({ url: $('#search').val() }),
+                dataType: "json"
+            }).done(function (msg) {
+                $.each(msg, function (index, element) {
+                    if (element.error) {
+                        $('#groupinfo').append(element.error);
+                    } else {
+                        $('#groupinfo').append(element.Name +element.AdGroup + "<br>");
+                    }
+                })
+            }).fail(function(jqXHR, textStatus) {
+                $('#groupinfo').append("the status of the request: "+textStatus);
+            });
         });
-    });
+});
+
+// Search the groupname info when keydown the search keyword.
+$(function () {
+    $('#search').keydown(
+        function () {
+            $('#groupinfo').empty();
+            $.ajax({
+                url: "http://psd1935-v.iacp.iac/FIS/MAY/GetIacAdInfo/Default.aspx",
+                cache: false,
+                type: "POST",
+                data: JSON.stringify({ url: $('#search').val() }),
+                dataType: "json"
+            }).done(function (msg) {
+                $('#groupinfo').append("<pre>");
+                $.each(msg, function (index, element) {
+                    if (element.error) {
+                        $('#groupinfo').append(element.error);
+                    } else {
+                        if (element.Name.trim() != "") {
+                            $('#groupinfo').append(element.Name  + "<br>");
+                            //$('#groupinfo').append(element.Name + "&#9;" + element.AdGroup + "<br>");
+                        }
+                    }
+                })
+                $('#groupinfo').append("</pre>");
+            }).fail(function(jqXHR, textStatus) {
+                $('#groupinfo').append("the status of the request: "+textStatus);
+            });
+        });
 });
 
 function GetGroupInfo() {
     $('#groupinfo').empty();
     $.ajax({
-        url: "http://127.0.0.1:45280/Default.aspx",
+        url: "http://psd1935-v.iacp.iac/FIS/MAY/GetIacAdInfo/Default.aspx",
         cache: false,
         type: "POST",
         data: JSON.stringify({ url: $('#search').val() }),
@@ -41,7 +71,7 @@ function GetGroupInfo() {
             if (element.error) {
                 $('#groupinfo').append(element.error);
             } else {
-                $('#groupinfo').append(element.MemberInfo + "<br>");
+                $('#groupinfo').append(element.Name + "<br>");
             }
         })
     }).fail(function (jqXHR, textStatus) {
@@ -52,21 +82,21 @@ function GetGroupInfo() {
 function dumpgroupinfo(query) {
     var articleData = {};
     articleData.error = "加载中...";
-    articleData.MemberInfo = "获取中...";
+    articleData.Name = "获取中...";
     $.ajax({
-        url: "http://127.0.0.1:45280/Default.aspx",
+        url: "http://psd1935-v.iacp.iac/FIS/MAY/GetIacAdInfo/Default.aspx",
         cache: false,
         type: "POST",
         data: JSON.stringify({ url: $('#search').val() }),
         dataType: "json"
     }).done(function (msg) {
         if (msg.error) {
-            articleData.MemberInfo = msg.error;
+            articleData.Name = msg.error;
         } else {
-            articleData.MemberInfo = msg.MemberInfo;
+            articleData.Name = msg.Name;
         }
     }).fail(function (jqXHR, textStatus) {
-        articleData.MemberInfo = textStatus;
+        articleData.Name = textStatus;
     });
 }
 
@@ -80,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $("#content-title").text(data.title);
         $("#content-author").text(data.author);
         $("#content-date").text(data.postDate);
-        $("#content-first-access").text(data.MemberInfo);
+        $("#content-first-access").text(data.Name);
         $("#search").val("MIT");
     }
 });

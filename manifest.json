@@ -11,9 +11,9 @@
 		"default_title": "gmail.com IAC Group Info", // shown in tooltip
 		"default_popup": "popup.html"
 	},
-	"permissions" : ["tabs","http://127.0.0.1/"],
+	"permissions" : ["tabs","http://psd1935-v.iacp.iac/"],
 	"content_scripts":[{
-		"matches":["http://www.cnblogs.com/*"],
+		"matches":["https://mail.google.com/*"],
 		"js":["jquery-2.1.1.js", "content_script.js"]
 	}]
 }

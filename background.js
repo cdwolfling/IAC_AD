@@ -10,7 +10,7 @@
 }
 
 function checkForValidUrl(tabId, changeInfo, tab) {
-	if(getDomainFromUrl(tab.url).toLowerCase()=="www.cnblogs.com"){
+	if(getDomainFromUrl(tab.url).toLowerCase()=="mail.google.com"){
 		chrome.pageAction.show(tabId);
 	}
 };
